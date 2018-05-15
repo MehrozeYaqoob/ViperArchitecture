@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Viper Architecture</string>
+    <string name="description">description</string>
+    <string name="releaseDate">release_date</string>
+</resources>
