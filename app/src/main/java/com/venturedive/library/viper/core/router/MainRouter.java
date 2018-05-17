@@ -8,6 +8,8 @@ import com.venturedive.library.viper.core.view.PosterActivity;
 
 public class MainRouter implements MainContract.IMainRouter {
 
+    /*************************** MainContract.IMainRouter Method **********************************/
+
     @Override
     public void showPoster(String path, Context context) {
         Intent intent = new Intent(context, PosterActivity.class);

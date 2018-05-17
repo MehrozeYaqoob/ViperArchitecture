@@ -24,6 +24,8 @@ public class PosterActivity extends AppCompatActivity implements PosterContract.
         posterPresenter.onPosterDataReceived(getIntent());
     }
 
+    /*************************** PosterContract.IPosterView Method **********************************/
+
     @Override
     public void showMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();

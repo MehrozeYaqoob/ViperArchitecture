@@ -16,6 +16,8 @@ public class PosterInteractor implements PosterContract.IPosterInteractor {
         posterBinding.setPoster(posterImage);
     }
 
+    /*************************** PosterContract.IPosterInteractor Method **********************************/
+
     @Override
     public void attachPresenter(PosterContract.IPosterPresenter posterPresenter) {
         this.posterPresenter = posterPresenter;

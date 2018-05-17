@@ -37,6 +37,7 @@ public interface MainContract {
     interface IMainRouter {
         void showPoster(String path, Context context);
     }
+
     interface RequestCallbacks {
         void onSuccess(List<Movie> movieList);
         void onFailure(Object exception);

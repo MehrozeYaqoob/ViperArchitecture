@@ -17,6 +17,8 @@ public class PosterPresenter implements PosterContract.IPosterPresenter {
         this.posterInteractor.attachPresenter(this);
     }
 
+    /*************************** PosterContract.IPosterPresenter Method **********************************/
+
     @Override
     public void attachView(PosterContract.IPosterView view) {
         this.posterView = view;
