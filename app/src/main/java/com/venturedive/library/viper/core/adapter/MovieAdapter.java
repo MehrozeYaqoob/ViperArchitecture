@@ -19,6 +19,7 @@ public class MovieAdapter extends GroupListAdapter<MovieAdapter.ViewHolder> {
 
     private Context context;
     private List<Movie> movieList;
+    public MainContract.IMainInteractor interactor;
 
     public MovieAdapter(Context activity, List<Movie> movieList, RecyclerView parent) {
         super(activity, movieList.size(), parent);
@@ -68,8 +69,6 @@ public class MovieAdapter extends GroupListAdapter<MovieAdapter.ViewHolder> {
     public int getItemCount() {
         return movieList.size();
     }
-
-    public MainContract.IMainInteractor interactor;
 
     private void onChildViewSelected(ViewHolder viewHolder, int position) {
         Movie movie = movieList.get(position);

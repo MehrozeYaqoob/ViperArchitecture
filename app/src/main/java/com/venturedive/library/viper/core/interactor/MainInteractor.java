@@ -11,20 +11,23 @@ import com.venturedive.library.viper.api.RequestCall;
 import com.venturedive.library.viper.core.adapter.MovieAdapter;
 import com.venturedive.library.viper.core.contract.MainContract;
 import com.venturedive.library.viper.core.entity.Movie;
+import com.venturedive.library.viper.core.presenter.MainPresenter;
 
 import java.util.List;
 
 public class MainInteractor implements MainContract.IMainInteractor {
 
-    private MainContract.IMainPresenter presenter;
+    private MainPresenter presenter;
     private Context context;
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
     private List<Movie> movieList;
     private RequestCall requestCall;
 
+    /*************************** MainContract.IMainInteractor Method **********************************/
+
     @Override
-    public void attachPresenter(MainContract.IMainPresenter presenter) {
+    public void attachPresenter(MainPresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -34,7 +37,7 @@ public class MainInteractor implements MainContract.IMainInteractor {
         this.progressDialog = progressDialog;
         this.recyclerView = recyclerView;
         this.progressDialog.setMessage("Loading.....");
-        this.progressDialog.show();
+        this.presenter.showProgressDialog(progressDialog);
 
         requestCall = new RequestCall(new MainContract.RequestCallbacks() {
             @Override
@@ -42,17 +45,23 @@ public class MainInteractor implements MainContract.IMainInteractor {
                 MainInteractor.this.movieList = movieList;
                 populateRecyclerView();
                 presenter.prepareMessage("Number of movieList received: " + MainInteractor.this.movieList.size());
-                progressDialog.dismiss();
+                MainInteractor.this.presenter.dismissProgressDialog(progressDialog);
             }
 
             @Override
             public void onFailure(Object t) {
-                progressDialog.dismiss();
+                MainInteractor.this.presenter.dismissProgressDialog(progressDialog);
             }
         });
         requestCall.requestAPI();
     }
 
+    @Override
+    public void onPosterClick(String path) {
+        presenter.onPosterClick(path);
+    }
+
+    /*************************** MainInteractor Method **********************************/
 
     private void populateRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -61,10 +70,5 @@ public class MainInteractor implements MainContract.IMainInteractor {
         MovieAdapter movieAdapter = new MovieAdapter(context, movieList, recyclerView);
         movieAdapter.interactor = this;
         recyclerView.setAdapter(movieAdapter);
-    }
-
-    @Override
-    public void onPosterClick(String path) {
-        presenter.onPosterClick(path);
     }
 }

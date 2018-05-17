@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
     private RecyclerView recyclerView;
     private ProgressDialog progressDialog;
 
+    /*************************** AppCompatActivity Method **********************************/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
         mainPresenter.loadData(this,recyclerView,progressDialog);
 
     }
+
+    /****************************** MainContract.IMainView Method *****************************/
+
     public Context getContext(){
         return this;
     }
@@ -37,4 +42,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
     public void showMessage(String message) {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void showDialog(ProgressDialog progressDialog) {
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissDialog(ProgressDialog progressDialog) {
+        progressDialog.dismiss();
+    }
+
 }

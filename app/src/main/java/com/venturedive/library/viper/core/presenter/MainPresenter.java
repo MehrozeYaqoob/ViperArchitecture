@@ -8,7 +8,7 @@ import com.venturedive.library.viper.core.contract.MainContract;
 import com.venturedive.library.viper.core.interactor.MainInteractor;
 import com.venturedive.library.viper.core.router.MainRouter;
 
-public class MainPresenter implements MainContract.IMainPresenter {
+public class MainPresenter implements MainContract.IMainPresenter, MainContract.IMainInteractorOutput {
 
     private MainContract.IMainView iMainView;
     private final MainContract.IMainInteractor iMainInteractor;
@@ -18,8 +18,9 @@ public class MainPresenter implements MainContract.IMainPresenter {
         iMainInteractor = new MainInteractor();
         iMainInteractor.attachPresenter(this);
         iMainRouter = new MainRouter();
-
     }
+
+    /*************************** MainContract.IMainPresenter Method **********************************/
 
     @Override
     public void attachView(MainContract.IMainView view) {
@@ -38,5 +39,17 @@ public class MainPresenter implements MainContract.IMainPresenter {
     @Override
     public void onPosterClick(String path) {
         iMainRouter.showPoster(path, iMainView.getContext());
+    }
+
+    /****************************** Interactor Output Method ****************************************/
+
+    @Override
+    public void showProgressDialog(ProgressDialog progressDialog) {
+        iMainView.showDialog(progressDialog);
+    }
+
+    @Override
+    public void dismissProgressDialog(ProgressDialog progressDialog) {
+        iMainView.dismissDialog(progressDialog);
     }
 }
